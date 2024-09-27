@@ -1,0 +1,79 @@
+The {func_name} function is a part of {alg}, which is used to solve {pro}.
+{func_desc}
+Here are some example codes and their corresponding performance scores that you can refer to for predicting heuristic functions:
+[example code 0]
+{code_0}
+[performance score of example code 0]
+{score_0}
+---
+[example code 1]
+{code_1}
+[performance score of example code 1]
+{score_1}
+---
+[example code 2]
+{code_2}
+[performance score of example code 2]
+{score_2}
+---
+[example code 3]
+{code_3}
+[performance score of example code 3]
+{score_3}
+---
+[example code 4]
+{code_4}
+[performance score of example code 4]
+{score_4}
+---
+[example code 5]
+{code_5}
+[performance score of example code 5]
+{score_5}
+---
+[example code 6]
+{code_6}
+[performance score of example code 6]
+{score_6}
+---
+[example code 7]
+{code_7}
+[performance score of example code 7]
+{score_7}
+---
+[example code 8]
+{code_8}
+[performance score of example code 8]
+{score_8}
+---
+[example code 9]
+{code_9}
+[performance score of example code 9]
+{score_9}
+---
+Here are some codes that you need to predict:
+[code_10]
+{code_10}
+---
+[code_11]
+{code_11}
+---
+[code_12]
+{code_12}
+---
+[code_13]
+{code_13}
+---
+[code_14]
+{code_14}
+
+Predict the performance of the above codes by comparing their semantic meanings with the provided example codes. Provide a performance score and a confidence number based on your evaluation for each code.
+The performance score should be a float within the range [{score_0}, {score_1}], where a lower score indicates a better-performing heuristic.
+The confidence number should be a float within the range [0,1], indicating how similar the semantics of the code is to the most similar example code.
+Note that you can only give a confidence level = 1 if the code is semantically identical to the provided example code.
+Output only the performance score and confidence number of these codes that need to be predicted, strictly adhering to the following format. No other words and punctuation should be included in the output.
+'''code_10: score, confidence,
+code_11: score, confidence,
+code_12: score, confidence,
+code_13: score, confidence,
+code_14: score, confidence'''

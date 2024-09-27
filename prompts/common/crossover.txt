@@ -1,0 +1,15 @@
+{user_generator}
+
+[Worse code]
+{func_signature0}
+{worse_code}
+
+[Better code]
+{func_signature1}
+{better_code}
+
+[direction]
+{direction}
+
+
+Please write an improved function `{func_name}_v2`, according to the search directions. Strictly follow the function input and output definitions in {func_signature1}. Output code only and enclose your code with Python code block: ```python ... ```.

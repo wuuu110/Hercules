@@ -1,0 +1,12 @@
+Below is your prior long-term directions on designing heuristics for {problem_desc}
+{prior_direction}
+
+Below are some newly gained insights.
+{new_direction}
+
+Below are some core components of the previous {func_name} functions.
+
+[components]
+{component}
+
+Write constructive hints for designing better heuristics, based on prior directions, new insights, and the provided core components, using less than 50 words.

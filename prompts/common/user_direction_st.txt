@@ -1,0 +1,17 @@
+Below are two {func_name} functions for {problem_desc}
+{func_desc}
+
+You are provided with two code versions below, where the second version performs better than the first one.
+
+[Worse code]
+{worse_code}
+
+[Better code]
+{better_code}
+
+Below are some core components of the previous {func_name} functions.
+
+[components]
+{component}
+
+Reflect about why the second code performs better than the first, considering the provided core components. Only output some hints on designing better {func_name} functions base your reflection, using less than 20 words.

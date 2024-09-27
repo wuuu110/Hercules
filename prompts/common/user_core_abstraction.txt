@@ -1,0 +1,21 @@
+The {func_name} function is a part of {alg} for solving {pro}.
+{func_desc}
+
+Below are five {func_name} functions:
+[code_0]
+{code_0}
+-------
+[code_1]
+{code_1}
+-------
+[code_2]
+{code_2}
+-------
+[code_3]
+{code_3}
+-------
+[code_4]
+{code_4}
+
+
+Summarize the key code components of these functions that potentially influence the effectiveness and performance of the algorithm, using less than 200 words.

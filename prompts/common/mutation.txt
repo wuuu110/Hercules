@@ -1,0 +1,11 @@
+{user_generator}
+
+[Prior direction]
+{direction}
+
+[Code]
+{func_signature1}
+{elitist_code}
+
+[Improved code]
+Please write a mutated function `{func_name}_v2`, according to the direction. Strictly follow the function input and output definitions in {func_signature1}. Output code only and enclose your code with Python code block: ```python ... ```.
