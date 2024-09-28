@@ -38,7 +38,7 @@ def aco_bpp(heuristic):
         for i, obj in enumerate(mean_obj):
             print(f"[*] Average for {problem_size}, {N_ITERATIONS[i]} iterations: {obj}")
 def main():
-   # please define heuristic function
+   # please define the heuristic function
     aco_bpp(heuristic)
 
 if __name__ == "__main__":
