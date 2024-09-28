@@ -183,8 +183,7 @@ class VRPTester():
 
                 loss_node, selected_teacher, selected_student, selected_flag_teacher, selected_flag_student = \
                     self.model(state, self.env.selected_node_list, self.env.solution, current_step,
-                               raw_data_capacity=self.env.raw_data_capacity)  # 更新被选择的点和概率
-
+                               raw_data_capacity=self.env.raw_data_capacity) 
                 if current_step == 0:
                     selected_flag_teacher = torch.ones(B_V, dtype=torch.int)
                     selected_flag_student = selected_flag_teacher
