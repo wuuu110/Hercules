@@ -63,7 +63,7 @@ class Herculesp:
 
         # Loading all text prompts
         # Problem-specific prompt components
-        prompt_path_suffix = "_black_box" if self.problem_type == "black_box" else ""
+        prompt_path_suffix =  ""
         problem_prompt_path = f'{self.prompt_dir}/{self.problem}{prompt_path_suffix}'
         self.seed_func = file_to_string(f'{problem_prompt_path}/seed_func.txt')
         self.func_signature = file_to_string(f'{problem_prompt_path}/func_signature.txt')
@@ -242,7 +242,7 @@ class Herculesp:
 
         # Execute the python file with flags
         with open(individual["stdout_filepath"], 'w') as f:
-            eval_file_path = f'{self.root_dir}/problems/{self.problem}/eval.py' if self.problem_type != "black_box" else f'{self.root_dir}/problems/{self.problem}/eval_black_box.py'
+            eval_file_path = f'{self.root_dir}/problems/{self.problem}/eval.py'
             process = subprocess.Popen(['python', '-u', eval_file_path, f'{self.problem_size}', self.root_dir, "train"],
                                        stdout=f, stderr=f)
 
@@ -290,11 +290,8 @@ class Herculesp:
         """
         Rank-based selection, select individuals with probability proportional to their rank.
         """
-        if self.problem_type == "black_box":
-            population = [individual for individual in population if
-                          individual["exec_success"] and individual["obj"] < self.seed_ind["obj"]]
-        else:
-            population = [individual for individual in population if individual["exec_success"]]
+        
+        population = [individual for individual in population if individual["exec_success"]]
         if len(population) < 2:
             return None
         # Sort population by objective value
