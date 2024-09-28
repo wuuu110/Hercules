@@ -7,7 +7,7 @@ except:
     from gpt import heuristics
 
 
-IMPL_REEVO = True
+IMPL_LLM = True
 
 def heuristics_seed(distance_matrix: torch.Tensor) -> torch.Tensor:
     """
@@ -52,9 +52,9 @@ class TSPModel(nn.Module):
             if  repair == False :
                 if current_step <= 1:
                     self.encoded_nodes = self.encoder(state.data) # state.data.shape: [B, V, 2]
-                    ######################## ReEvo #############################
+                    ######################## LLM #############################
                     distance_matrices = torch.cdist(state.data, state.data, p=2)
-                    if IMPL_REEVO:
+                    if IMPL_LLM:
                         self.attention_bias = torch.stack([
                             heuristics(distance_matrices[i]) for i in range(distance_matrices.size(0))
                         ], dim=0)
@@ -207,8 +207,8 @@ class TSP_Decoder(nn.Module):
         out = self.Linear_final(out).squeeze(-1)
         # Linear_final: (B, V, 1) -> (B, V)
         
-        # ReEvo: add attention bias
-        if IMPL_REEVO:
+        # LLM: add attention bias
+        if IMPL_LLM:
             # Fetch the last selected node's attention bias for each batch
             current_node_idx = selected_node_list[:, -1]  # shape: (B,)
             attention_bias_current_node = attention_bias[torch.arange(batch_size_V), current_node_idx]  # shape: (B, V)
