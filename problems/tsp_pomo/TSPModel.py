@@ -10,7 +10,7 @@ except:
     from gpt import heuristics
 
 
-IMPL_REEVO = True
+IMPL_LLM = True
 
 def seed_heuristics(distance_matrix: torch.Tensor) -> torch.Tensor:
     """
@@ -44,8 +44,8 @@ class TSPModel(nn.Module):
         # reset_state.problems.shape: (batch, problem, 2)
         distance_matrices = torch.cdist(reset_state.problems, reset_state.problems, p=2)
 
-        ######################## ReEvo #############################
-        if IMPL_REEVO:
+        ######################## LLM #############################
+        if IMPL_LLM:
             self.attention_bias = torch.stack([
                 heuristics(distance_matrices[i]) for i in range(distance_matrices.size(0))
             ], dim=0)
@@ -77,8 +77,8 @@ class TSPModel(nn.Module):
             # state.current_node.shape == (batch, pomo)
             encoded_last_node = _get_encoding(self.encoded_nodes, state.current_node)
             # shape: (batch, pomo, embedding)
-            # ReEvo: get attention bias for the current node
-            attention_bias_current_node = self.attention_bias[torch.arange(batch_size)[:, None], state.current_node, :] if IMPL_REEVO else None
+            # LLM: get attention bias for the current node
+            attention_bias_current_node = self.attention_bias[torch.arange(batch_size)[:, None], state.current_node, :] if IMPL_LLM else None
             # shape: (batch, pomo, problem)
             probs = self.decoder(encoded_last_node, ninf_mask=state.ninf_mask, attention_bias_current_node=attention_bias_current_node)
             # shape: (batch, pomo, problem)
@@ -255,8 +255,8 @@ class TSP_Decoder(nn.Module):
         score = torch.matmul(mh_atten_out, self.single_head_key)
         # shape: (batch, pomo, problem)
         
-        # ReEvo: reshape the attention score
-        score = score + attention_bias_current_node if IMPL_REEVO else score
+        # LLM: reshape the attention score
+        score = score + attention_bias_current_node if IMPL_LLM else score
 
         sqrt_embedding_dim = self.model_params['sqrt_embedding_dim']
         logit_clipping = self.model_params['logit_clipping']
