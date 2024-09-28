@@ -102,7 +102,7 @@ class VRPModel(nn.Module):
             probs = self.decoder(self.encoded_nodes, selected_node_list,self.capacity, remaining_capacity, attention_bias=self.attention_bias)
 
             selected_node_student = probs.argmax(dim=1)  # shape: B
-            is_via_depot_student = selected_node_student >= split_line  # 节点index大于 customer_num的是通过depot的
+            is_via_depot_student = selected_node_student >= split_line  
             not_via_depot_student = selected_node_student < split_line
             # print(selected_node_student)
             selected_flag_student = torch.zeros(batch_size, dtype=torch.int)
