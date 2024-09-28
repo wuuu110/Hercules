@@ -81,8 +81,8 @@ class TSPEnv:
         # -----------------------------
         double_solution = torch.cat([solution, solution], dim=-1)
         new_sulution = double_solution[:, first_node_index: first_node_index + length_of_subpath]
-        new_sulution_ascending, rank = torch.sort(new_sulution, dim=-1, descending=False)  # 升序
-        _, new_sulution_rank = torch.sort(rank, dim=-1, descending=False)  # 升序
+        new_sulution_ascending, rank = torch.sort(new_sulution, dim=-1, descending=False)  #
+        _, new_sulution_rank = torch.sort(rank, dim=-1, descending=False)  #
 
         # -----------------------------
         # new_problems
