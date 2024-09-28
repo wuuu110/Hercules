@@ -304,49 +304,17 @@ class Herculesp:
         # Normalize probabilities
         probs = [prob / sum(probs) for prob in probs]
         selected_population = []
-        predictor_population = []
         trial = 0
         while len(selected_population) < 2 * self.cfg.pop_size:
             trial += 1
             parents = np.random.choice(population, size=2, replace=False, p=probs)
             if parents[0]["obj"] != parents[1]["obj"]:
                 selected_population.extend(parents)
-                if parents[0]["obj"] < parents[1]["obj"]:
-                    predictor_population.extend([parents[0]])
-                else:
-                    predictor_population.extend([parents[1]])
+                
             if trial > 1000:
                 return None
-        return selected_population, predictor_population
+        return selected_population
 
-    def random_select(self, population: list[dict]) -> list[dict]:
-        """
-        Random selection, select individuals with equal probability.
-        """
-        selected_population = []
-        predictor_population = []
-        # Eliminate invalid individuals
-        if self.problem_type == "black_box":
-            population = [individual for individual in population if
-                          individual["exec_success"] and individual["obj"] < self.seed_ind["obj"]]
-        else:
-            population = [individual for individual in population if individual["exec_success"]]
-        if len(population) < 2:
-            return None
-        trial = 0
-        while len(selected_population) < 2 * self.cfg.pop_size:
-            trial += 1
-            parents = np.random.choice(population, size=2, replace=False)
-            # If two parents have the same objective value, consider them as identical; otherwise, add them to the selected population
-            if parents[0]["obj"] != parents[1]["obj"]:
-                selected_population.extend(parents)
-                if parents[0]["obj"] < parents[1]["obj"]:
-                    predictor_population.extend([parents[0]])
-                else:
-                    predictor_population.extend([parents[1]])
-            if trial > 1000:
-                return None
-        return selected_population, predictor_population
 
     def predict(self, population, crossover_flag, alpha):
         """
@@ -709,7 +677,7 @@ class Herculesp:
             # Select
             population_to_select = self.population if (self.elitist is None or self.elitist in self.population) else [
                                                                                                                          self.elitist] + self.population  # add elitist to population for selection
-            selected_population, predict_population = self.rank_select(population_to_select)
+            selected_population = self.rank_select(population_to_select)
             if selected_population is None:
                 raise RuntimeError("Selection failed. Please check the population.")
 
