@@ -54,7 +54,7 @@ class VRPModel(nn.Module):
             selected_node_student_[is_via_depot_student_] = selected_node_student_[is_via_depot_student_]-split_line_ +1
             selected_flag_student_[not_via_depot_student_] = 0
             selected_node_student_[not_via_depot_student_] = selected_node_student_[not_via_depot_student_]+ 1
-            return selected_node_student_, selected_flag_student_ # node 的 index 从 1 开始
+            return selected_node_student_, selected_flag_student_ # 
 
         if self.mode == 'train':
             raise NotImplementedError
