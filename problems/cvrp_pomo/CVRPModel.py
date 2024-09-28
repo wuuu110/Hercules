@@ -10,7 +10,7 @@ except:
     from gpt import heuristics
 
 
-IMPL_REEVO = True
+IMPL_LLM = True
 
 def seed_heuristics(distance_matrix: torch.Tensor, node_demands: torch.Tensor) -> torch.Tensor:
     """
@@ -44,8 +44,8 @@ class CVRPModel(nn.Module):
         distance_matrices = torch.cdist(all_nodes_xy, all_nodes_xy, p=2)
         all_node_demands = torch.cat((torch.zeros_like(reset_state.node_demand[:, :1]), reset_state.node_demand), dim=1)
 
-        ######################## ReEvo #############################
-        if IMPL_REEVO:
+        ######################## LLM #############################
+        if IMPL_LLM:
             self.attention_bias = torch.stack([
                 heuristics(distance_matrices[i], all_node_demands[i]) for i in range(all_nodes_xy.size(0))
             ], dim=0)
@@ -95,8 +95,8 @@ class CVRPModel(nn.Module):
             encoded_last_node = _get_encoding(self.encoded_nodes, state.current_node)
             # shape: (batch, pomo, embedding)
             
-            # ReEvo impl
-            attention_bias_current_node = self.attention_bias[torch.arange(batch_size)[:, None], state.current_node, :] if IMPL_REEVO else None
+            # LLM impl
+            attention_bias_current_node = self.attention_bias[torch.arange(batch_size)[:, None], state.current_node, :] if IMPL_LLM else None
             
             probs = self.decoder(encoded_last_node, state.load, ninf_mask=state.ninf_mask, attention_bias=attention_bias_current_node)
             # shape: (batch, pomo, problem+1)
@@ -290,7 +290,7 @@ class CVRP_Decoder(nn.Module):
         score = torch.matmul(mh_atten_out, self.single_head_key)
         # shape: (batch, pomo, problem)
         
-        # ReEvo impl
+        # LLM impl
         score = score + attention_bias if attention_bias is not None else score
 
         sqrt_embedding_dim = self.model_params['sqrt_embedding_dim']
