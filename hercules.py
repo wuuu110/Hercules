@@ -294,26 +294,7 @@ class Hercules:
                 return None
         return selected_population
 
-    def random_select(self, population: list[dict]) -> list[dict]:
-        """
-        Random selection, select individuals with equal probability.
-        """
-        selected_population = []
-        # Eliminate invalid individuals
 
-        population = [individual for individual in population if individual["exec_success"]]
-        if len(population) < 2:
-            return None
-        trial = 0
-        while len(selected_population) < 2 * self.cfg.pop_size:
-            trial += 1
-            parents = np.random.choice(population, size=2, replace=False)
-            # If two parents have the same objective value, consider them as identical; otherwise, add them to the selected population
-            if parents[0]["obj"] != parents[1]["obj"]:
-                selected_population.extend(parents)
-            if trial > 1000:
-                return None
-        return selected_population
 
     def core_abstraction(self):
         #Sort according to fitness values
