@@ -8,7 +8,7 @@ except:
     from gpt import heuristics
 
 
-IMPL_REEVO = True
+IMPL_LLM = True
 
 def heuristics_seed(distance_matrix: torch.Tensor, demands) -> torch.Tensor:
     """
@@ -86,9 +86,9 @@ class VRPModel(nn.Module):
                 # print(self.encoded_nodes.shape) (B, V+1, EMBEDDING_DIM)
                 coor = state.problems[:, :, :2]
                 demands = state.problems[:, :, 2]
-                ######################## ReEvo #############################
+                ######################## LLM #############################
                 distance_matrices = torch.cdist(coor, coor, p=2)
-                if IMPL_REEVO:
+                if IMPL_LLM:
                     self.attention_bias = torch.stack([
                         heuristics(distance_matrices[i], demands[i]) for i in range(distance_matrices.size(0))
                     ], dim=0)
@@ -289,8 +289,8 @@ class CVRP_Decoder(nn.Module):
         out = self.Linear_final(out)  # shape: [B*(V-1), reminding_nodes_number + 2, embedding_dim ]
         # print(out.shape) 202 -> 3 for CVRP 200
 
-        # ReEvo: add attention bias
-        if IMPL_REEVO:
+        # LLM: add attention bias
+        if IMPL_LLM:
             unselect_list = unselect_list + 1
             # Fetch the last selected node's attention bias for each batch
             current_node_idx = selected_node_list[:, -1] if selected_node_list.shape[1] > 0 else torch.zeros(batch_size_V, dtype=torch.long, device=selected_node_list.device) 
