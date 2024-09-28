@@ -3,7 +3,7 @@ from scipy.spatial import distance_matrix
 from copy import copy
 from tqdm import tqdm
 
-# Datasets and baseline results are drawn from Duflo et al. (2019). A GP Hyper-Heuristic Approach for Generating TSP Heuristics.
+
 
 names = ["ts225", "rat99", "rl1889", "u1817", "d1655", "bier127", "lin318", "eil51", "d493", "kroB100", "kroC100", "ch130", "d657", "kroA150", "u724", "pr264", "pr226", "pr439"]
 
@@ -29,27 +29,10 @@ opt = {
  }
 
 
-def select_next_node_ReEvo(current_node: int, destination_node: int, unvisited_nodes: set, distance_matrix: np.ndarray) -> int:
-    """Select the next node to visit from the unvisited nodes."""
-    weights = {'distance_to_current': 0.4, 
-               'average_distance_to_unvisited': 0.25, 
-               'std_dev_distance_to_unvisited': 0.25, 
-               'distance_to_destination': 0.1}
-    scores = {}
-    for node in unvisited_nodes:
-        future_distances = [distance_matrix[node, i] for i in unvisited_nodes if i != node]
-        if future_distances:
-            average_distance_to_unvisited = sum(future_distances) / len(future_distances)
-            std_dev_distance_to_unvisited = (sum((x - average_distance_to_unvisited) ** 2 for x in future_distances) / len(future_distances)) ** 0.5
-        else:
-            average_distance_to_unvisited = std_dev_distance_to_unvisited = 0
-        score = (weights['distance_to_current'] * distance_matrix[current_node, node] -
-                 weights['average_distance_to_unvisited'] * average_distance_to_unvisited +
-                 weights['std_dev_distance_to_unvisited'] * std_dev_distance_to_unvisited -
-                 weights['distance_to_destination'] * distance_matrix[destination_node, node])
-        scores[node] = score
-    next_node = min(scores, key=scores.get)
-    return next_node
+
+#please define the heuristic
+def select_next_node()
+
 
 
 def eval_heuristic(node_positions: np.ndarray, start_node: int) -> float:
@@ -64,7 +47,7 @@ def eval_heuristic(node_positions: np.ndarray, start_node: int) -> float:
     unvisited.remove(start_node)
     # run the heuristic
     for _ in tqdm(range(problem_size - 1)):
-        next_node = select_next_node_ReEvo(
+        next_node = select_next_node(
             current_node=solution[-1],
             destination_node=start_node,
             unvisited_nodes=copy(unvisited),
