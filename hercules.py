@@ -476,6 +476,7 @@ class Hercules:
     def evolve(self):
         while self.function_evals < self.cfg.max_fe:
             # If all individuals are invalid, stop
+            core_abstraction = ""
             if all([not individual["exec_success"] for individual in self.population]):
                 raise RuntimeError(f"All individuals are invalid. Please check the stdout files in {os.getcwd()}.")
             # Select
@@ -486,9 +487,6 @@ class Hercules:
             if self.function_evals <= self.lamda*self.cfg.max_fe:
                 # Abstract core components
                 core_abstraction = self.core_abstraction()
-            else:
-                core_abstraction = ""
-
             # Short-term direction
             short_term_direction_tuple = self.short_term_direction(selected_population, core_abstraction) # (response_lst, worse_code_lst, better_code_lst)
             # Crossover
