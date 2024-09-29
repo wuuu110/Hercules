@@ -475,8 +475,8 @@ class Hercules:
 
     def evolve(self):
         while self.function_evals < self.cfg.max_fe:
-            # If all individuals are invalid, stop
             core_abstraction = ""
+            # If all individuals are invalid, stop
             if all([not individual["exec_success"] for individual in self.population]):
                 raise RuntimeError(f"All individuals are invalid. Please check the stdout files in {os.getcwd()}.")
             # Select
