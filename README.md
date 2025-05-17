@@ -13,4 +13,4 @@ year = {2025},
 }
 ```
 # Acknowledgment
-We would like to thank the prior study [ReEvo: Large Language Models as Hyper-Heuristics with Reflective Evolution](https://openreview.net/forum?id=483IPG0HWL)[NeurIPS 2024], for its valuable contribution to this research area.
+We would like to thank the prior study [ReEvo: Large Language Models as Hyper-Heuristics with Reflective Evolution](https://openreview.net/forum?id=483IPG0HWL)(NeurIPS 2024), for its valuable contribution to this research area.
