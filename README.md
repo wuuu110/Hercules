@@ -1,5 +1,5 @@
 # Introduction
-The source code of "[Efficient Heuristics Generation for Solving Combinatorial Optimization Problems Using Large Language Models]()".
+The source code of "[Efficient Heuristics Generation for Solving Combinatorial Optimization Problems Using Large Language Models](https://arxiv.org/pdf/2505.12627)".
 
 
 # Citation
